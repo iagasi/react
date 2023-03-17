@@ -1,0 +1,29 @@
+.search {
+  background-color: rgb(241, 227, 227);
+  border-radius: 30px;
+  padding: 5px;
+  height: 35px;
+  margin: 0 auto;
+  display: flex;
+  gap: 15px;
+  padding-left: 10px;
+  align-items: center;
+  border: 2px solid rgb(137, 218, 15);
+
+  &__icon {
+    height: 70%;
+  }
+  &__input {
+    border-radius: 10px;
+    border: none;
+    height: 90%;
+    width: 100%;
+    color: inherit;
+    background-color: inherit;
+    font-size: 20px;
+  }
+
+  &__input:focus {
+    outline: none;
+  }
+}

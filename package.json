@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "node node_modules/eslint/bin/eslint.js ./",
+    "lint": "node node_modules/eslint/bin/eslint.js ./src",
+    "lint:fix": "node node_modules/eslint/bin/eslint.js  ./src   --fix",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },

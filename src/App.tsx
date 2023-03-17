@@ -1,11 +1,9 @@
-
-
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Page404 } from "./pages/Page404"
-import { Main } from './pages/Main'
-import { Header } from './components/Header'
-import { About } from './pages/About'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Page404 } from './pages/Page404';
+import { Main } from './pages/Main';
+import { Header } from './components/Header';
+import { About } from './pages/About';
 
 export class App extends React.Component {
   render() {
@@ -14,14 +12,12 @@ export class App extends React.Component {
         <Header />
         <Main />
       </>
-
-    )
+    );
   }
 }
 
 export class RoutedApp extends React.Component {
   render() {
-
     return (
       <BrowserRouter>
         <Routes>
@@ -30,8 +26,6 @@ export class RoutedApp extends React.Component {
           <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>
-    )
+    );
   }
-
 }
-
