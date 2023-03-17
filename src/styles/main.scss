@@ -1,0 +1,12 @@
+.main__wrapper {
+  padding: 20px;
+  background-color: rgb(182, 181, 181);
+}
+.main {
+  padding-top: 20px;
+  display: flex;
+  //flex-direction: column;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
