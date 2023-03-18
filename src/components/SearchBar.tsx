@@ -1,4 +1,5 @@
 import React from 'react';
+import { LocalStorage } from '../utils/localstorage';
 import '../styles/search.scss';
 type state = {
   searchText: string;
@@ -11,10 +12,18 @@ export class SearchBar extends React.Component {
   state = {
     searchText: '',
   };
-  add(e: React.ChangeEvent<HTMLInputElement>) {
+
+  componentDidMount() {
+    const data = LocalStorage.get();
     this.setState({
-      searchText: e.target.value,
+      searchText: data,
     });
+  }
+  add(e: React.ChangeEvent<HTMLInputElement>) {
+    this.setState(() => ({
+      searchText: e.target.value,
+    }));
+    LocalStorage.set(e.target.value);
   }
   render() {
     return (
