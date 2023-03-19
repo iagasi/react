@@ -16,7 +16,7 @@ export class SearchBar extends React.Component {
   componentDidMount() {
     const data = LocalStorage.get();
     this.setState({
-      searchText: data || "",
+      searchText: data || '',
     });
   }
   add(e: React.ChangeEvent<HTMLInputElement>) {
