@@ -20,7 +20,7 @@ export class Header extends React.Component {
 
   render(): React.ReactNode {
     return (
-      <header className="header">
+      <header className="header" data-testid="test-header">
         <Link className="link-reset" to={'/'}>
           {' '}
           <h2 className={this.state.route == '' ? 'link-active' : ''}>Main </h2>

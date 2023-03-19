@@ -6,8 +6,9 @@ export class About extends React.Component {
     return (
       <>
         <Header />
-        <div className="about">
+        <div className="about" data-testid="test-about">
           <h1> About</h1>
+
           <h5>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi nemo quaerat qui
             natus quo consectetur, velit quam modi similique? Sequi Sequi ipsa beatae itaque

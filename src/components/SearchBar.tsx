@@ -16,7 +16,7 @@ export class SearchBar extends React.Component {
   componentDidMount() {
     const data = LocalStorage.get();
     this.setState({
-      searchText: data,
+      searchText: data || "",
     });
   }
   add(e: React.ChangeEvent<HTMLInputElement>) {
@@ -27,7 +27,7 @@ export class SearchBar extends React.Component {
   }
   render() {
     return (
-      <h2 className="search">
+      <div className="search" data-testid="test-search">
         <img className="search__icon" src="/search.png" alt="" />
         <input
           className="search__input"
@@ -35,7 +35,7 @@ export class SearchBar extends React.Component {
           value={this.state.searchText}
           onChange={(e) => this.add(e)}
         />
-      </h2>
+      </div>
     );
   }
 }
