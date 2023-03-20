@@ -4,26 +4,29 @@ import '../styles/search.scss';
 type state = {
   searchText: string;
 };
-export class SearchBar extends React.Component {
+export class SearchBar extends React.Component<object, state> {
   input: React.LegacyRef<HTMLInputElement> | undefined;
   constructor(props: state) {
     super(props);
     this.add = this.add.bind(this);
     this.input = React.createRef();
+    this.state = {
+      searchText: '',
+    };
   }
-  state = {
-    searchText: '',
-  };
 
   componentDidMount() {
     const data = LocalStorage.get();
+    console.log(data);
+
     this.setState({
       searchText: data || '',
     });
   }
-  componentDidUpdate() {
-    //LocalStorage.set(this.input.current.value)
-    LocalStorage.set(this.state.searchText);
+  componentWillUnmount() {
+    const { searchText } = this.state;
+
+    LocalStorage.set(searchText);
   }
   add(e: React.ChangeEvent<HTMLInputElement>) {
     this.setState(() => ({
