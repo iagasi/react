@@ -1,0 +1,119 @@
+$formGap: 40px;
+.form-page {
+  background-color: rgb(255, 255, 255);
+}
+.form {
+  margin: 50px auto;
+  border: 2px solid rgba(1, 1, 2, 0.2);
+  min-width: 320px;
+  background-color: white;
+  width: fit-content;
+  padding: $formGap;
+  font-size: 18px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+
+  &__container {
+    margin: 0 auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+.form__personal {
+  display: flex;
+  gap: $formGap;
+  & :nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    gap: $formGap;
+  }
+}
+.form__permission {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+  margin-top: 5px;
+  padding-bottom: 10px;
+}
+.form__name {
+  position: relative;
+}
+.form__surname {
+  position: relative;
+}
+.form__input {
+  border: 1px solid rgb(204, 204, 204);
+  padding: 5px;
+  height: 25px;
+  border-radius: 5px;
+  font-size: 20px;
+  padding-left: 10px;
+  &:focus {
+    outline: none;
+  }
+}
+
+.form__gender {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding: 0px 0px 10px 0px;
+  position: relative;
+  margin: 10px 0 10px 0;
+}
+.form__date {
+  position: relative;
+  margin-bottom: 20px;
+}
+.form__submit {
+  margin: 0 auto;
+  background-color: rgb(97, 97, 249);
+  border: none;
+  padding: 10px;
+  color: white;
+  font-size: 20px;
+  width: fit-content;
+  border-radius: 5px;
+}
+
+.form__file {
+  text-align: center;
+  cursor: pointer;
+  padding: 5px;
+  width: fit-content;
+  color: white;
+  background-color: gray;
+  border-radius: 5px;
+}
+.form__file-wrapper {
+  position: relative;
+}
+
+.file__input {
+  display: none;
+  background-color: aqua;
+}
+.form__gender-select {
+  border-radius: 10px;
+}
+
+.form__field-error {
+  color: red;
+  display: none;
+  position: absolute;
+  bottom: -25px;
+}
+
+.dis-block {
+  display: block;
+}
+
+.form-page__cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}

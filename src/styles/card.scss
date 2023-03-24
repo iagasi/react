@@ -1,0 +1,29 @@
+.card {
+  font-family: sans-serif;
+  width: 400px;
+  height: 500px;
+  border: 1px solid black;
+  &__img {
+    max-width: 100%;
+    height: auto;
+  }
+  &__personal-data {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+}
+
+.personal-data__left {
+  max-width: fit-content;
+}
+.card__permissions-item {
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+.sec-span-bigger {
+  & span {
+    font-weight: 400;
+    font-size: 1.5rem;
+  }
+}
