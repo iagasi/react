@@ -69,6 +69,7 @@ export class FormContainer extends React.Component<object, IState> {
     const genderIs = FormGender.check(this.gender);
     const dateIs = FormDate.check(this);
     const url: string | undefined = FormFile.check(this);
+    console.log(this.personalPermissions.HandledField.current?.checked);
 
     const data: IFormCard = {
       name: this.name.current!.value,
@@ -77,9 +78,15 @@ export class FormContainer extends React.Component<object, IState> {
       dateOfBorn: this.date.current!.value,
       gender: this.gender.curentElemet.current!.value,
       permissions: [
-        this.personalPermissions.HandledField.current?.value,
-        this.personalPermissions.PybliclyField.current?.value,
-        this.personalPermissions.HidenField.current?.value,
+        this.personalPermissions.HandledField.current?.checked
+          ? this.personalPermissions.HandledField.current?.value
+          : '',
+        this.personalPermissions.PybliclyField.current?.checked
+          ? this.personalPermissions.PybliclyField.current?.value
+          : '',
+        this.personalPermissions.HidenField.current?.checked
+          ? this.personalPermissions.HidenField.current?.value
+          : '',
       ],
     };
     if (nameIs && surnameIs && permissionsIs && genderIs && dateIs && url) {

@@ -27,11 +27,13 @@ export class FormCard extends Component<{ data: IFormCard }> {
         <h4>Personal data will be</h4>
         <ul className="card__permissions">
           {this.props.data.permissions.map((e, i) => {
-            return (
-              <li className="card__permissions-item" key={i}>
-                {e}
-              </li>
-            );
+            if (e) {
+              return (
+                <li className="card__permissions-item" key={i}>
+                  {e}
+                </li>
+              );
+            }
           })}
         </ul>
       </div>

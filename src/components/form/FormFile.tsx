@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { FormCard } from './FormCard';
 import { FormContainer } from './FormContainer';
 import { FormError } from './FormError';
-const y = [];
 export class FormFile extends Component<{ container: FormContainer }> {
   static check(f: FormContainer) {
     const file = f.file.current!.files![0];
