@@ -1,0 +1,19 @@
+.header {
+  background-color: gray;
+  color: white;
+  height: 100px;
+  max-width: 100%;
+  display: flex;
+  gap: 20px;
+  padding-left: 20px;
+}
+
+.link-active {
+  text-decoration: underline;
+  color: rgb(156, 234, 133);
+}
+
+.link-reset {
+  text-decoration: none;
+  color: inherit;
+}
