@@ -124,3 +124,24 @@ $formGap: 40px;
   position: relative;
   margin-bottom: 20px;
 }
+
+.form__sucess {
+  background-color: rgba(1, 1, 2, 0.5);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: 0 auto;
+}
+
+.sucess__mesage {
+  width: fit-content;
+  font-size: 30px;
+  color: white;
+}

@@ -9,9 +9,11 @@ import { FormPermission } from './FormPermission';
 import { FormPersonal } from './FormPersonal';
 import { countriesType, genderType, IFormCard, personalPermissions } from './types';
 import { SwitcherGender } from './SwitcherGender';
+import FormCardAdded from './FormCardAdded';
 
 interface IState {
   cards: Array<IFormCard | undefined>;
+  renderComponent: boolean;
 }
 
 export class FormContainer extends React.Component<object, IState> {
@@ -28,8 +30,10 @@ export class FormContainer extends React.Component<object, IState> {
   dateError: React.RefObject<HTMLDivElement>;
   file: React.RefObject<HTMLInputElement>;
   fileError: React.RefObject<HTMLDivElement>;
+  timer: ReturnType<typeof setTimeout> | null;
   constructor(props: object) {
     super(props);
+    this.timer = null;
     this.formWrapperRef = React.createRef();
     this.name = React.createRef();
     this.nameError = React.createRef();
@@ -61,6 +65,7 @@ export class FormContainer extends React.Component<object, IState> {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       cards: [],
+      renderComponent: false,
     };
   }
 
@@ -98,7 +103,7 @@ export class FormContainer extends React.Component<object, IState> {
       ],
     };
     if (nameIs && surnameIs && permissionsIs && countriesIs && dateIs && url && genderIs) {
-      this.setState((prev) => ({ cards: [...prev.cards, data] }));
+      this.setState((prev) => ({ cards: [...prev.cards, data], renderComponent: true }));
       this.name.current!.value = '';
       this.surname.current!.value = '';
       this.personalPermissions.HandledField.current!.checked = false;
@@ -112,7 +117,19 @@ export class FormContainer extends React.Component<object, IState> {
       this.gender.curr = '';
     }
   }
-
+  componentDidUpdate(): void {
+    console.log('Z');
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = null;
+      return;
+    } else {
+      this.timer = setTimeout(() => {
+        console.log('here');
+        this.setState(() => ({ renderComponent: false }));
+      }, 1000);
+    }
+  }
   render(): ReactNode {
     return (
       <div className="form-page__container">
@@ -124,6 +141,7 @@ export class FormContainer extends React.Component<object, IState> {
           <SwitcherGender curr={this.gender} />
           <FormFile container={this} />
         </Form>
+        {this.state.renderComponent && <FormCardAdded />}
         <div className="form-page__cards">
           {this.state.cards && this.state.cards.map((e, i) => e && <FormCard key={i} data={e} />)}
         </div>

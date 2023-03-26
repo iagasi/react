@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { FormContainer } from './FormContainer';
 import { FormError } from './FormError';
 import { genderType } from './types';
 
@@ -9,8 +8,6 @@ export class SwitcherGender extends Component<{ curr: genderType }> {
     this.handleChecbox = this.handleChecbox.bind(this);
   }
   static check(gender: genderType) {
-    console.log(gender.male.current?.checked);
-
     if (!gender.male.current?.checked && !gender.female.current?.checked) {
       gender.error.current?.classList.add('dis-block');
       return false;
