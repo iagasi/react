@@ -22,7 +22,7 @@ export class FormFile extends Component<{ container: FormContainer }> {
             ref={this.props.container.file}
             className="file__input"
             type="file"
-            placeholder="upload Img"
+            placeholder="uploadImg"
           />
           <FormError refError={this.props.container.fileError}>
             <div>File not selected</div>

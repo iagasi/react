@@ -9,7 +9,7 @@ interface Props {
 export class Form extends React.Component<Props> {
   render() {
     return (
-      <form className="form">
+      <form className="form" role="form">
         <div className="form__container">
           {this.props.children}
           <button className="form__submit " onClick={this.props.container.handleSubmit}>

@@ -7,11 +7,10 @@ vi.mock('../data.json', () => {
   return { products: [{}] };
 });
 
-//data.mockReturvalue()
+
 
 describe('Main', () => {
   it('Renders List Items', () => {
     render(<Main />);
-    // expect(screen.getByText("MockTitle"))
   });
 });

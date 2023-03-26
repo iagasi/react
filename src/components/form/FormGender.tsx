@@ -20,9 +20,12 @@ export class FormGender extends Component<{ container: genderType }> {
           name="gender"
           defaultValue="ds"
           ref={this.props.container.curentElemet}
+          data-testid="selectgender"
         >
           <option value="0"></option>
-          <option value="male">Man</option>
+          <option value="male" data-testid="optionMan">
+            Man
+          </option>
           <option value="female">Female</option>
         </select>
         <FormError refError={this.props.container.error}>

@@ -31,7 +31,12 @@ export class FormPermission extends Component<{ container: personalPermissions }
         I consent to my personal data
         <br /> Will be:
         <label>
-          <input type="checkbox" ref={this.props.container.HandledField} value="Handled" />
+          <input
+            type="checkbox"
+            ref={this.props.container.HandledField}
+            value="Handled"
+            data-testid="checkboxHandled"
+          />
           Handled
         </label>
         <label>

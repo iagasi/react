@@ -12,14 +12,7 @@ import { genderType, IFormCard, personalPermissions } from './types';
 interface IState {
   cards: Array<IFormCard | undefined>;
 }
-const mock: IFormCard = {
-  name: 'gell',
-  surname: 'Hideee',
-  img: 'https://9to5google.com/wp-content/uploads/sites/4/2020/04/google_doodle_coronavirus_helpers_1.jpg?quality=82&strip=all&w=1280',
-  dateOfBorn: '11/00/2022',
-  gender: 'Male',
-  permissions: ['Allow', 'Hide'],
-};
+
 export class FormContainer extends React.Component<object, IState> {
   formWrapperRef: React.RefObject<HTMLDivElement>;
   name: React.RefObject<HTMLInputElement>;
@@ -57,7 +50,7 @@ export class FormContainer extends React.Component<object, IState> {
     this.fileError = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      cards: [mock],
+      cards: [],
     };
   }
 

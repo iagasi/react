@@ -26,6 +26,7 @@ export default class FormDate extends Component<{ container: FormContainer }> {
           min="2000-00-00"
           max="9999-12-31"
           ref={this.props.container.date}
+          data-testid="formdate"
         />
         <FormError refError={this.props.container.dateError}>Please Select date</FormError>
       </div>
