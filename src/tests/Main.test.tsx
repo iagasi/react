@@ -7,8 +7,6 @@ vi.mock('../data.json', () => {
   return { products: [{}] };
 });
 
-
-
 describe('Main', () => {
   it('Renders List Items', () => {
     render(<Main />);

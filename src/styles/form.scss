@@ -57,6 +57,7 @@ $formGap: 40px;
 }
 
 .form__gender {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   width: fit-content;
@@ -69,7 +70,7 @@ $formGap: 40px;
   margin-bottom: 20px;
 }
 .form__submit {
-  margin: 0 auto;
+  margin: 10px auto;
   background-color: rgb(97, 97, 249);
   border: none;
   padding: 10px;
@@ -77,6 +78,7 @@ $formGap: 40px;
   font-size: 20px;
   width: fit-content;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .form__file {

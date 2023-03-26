@@ -84,6 +84,14 @@ export class FormContainer extends React.Component<object, IState> {
     };
     if (nameIs && surnameIs && permissionsIs && genderIs && dateIs && url) {
       this.setState((prev) => ({ cards: [...prev.cards, data] }));
+      this.name.current!.value = '';
+      this.surname.current!.value = '';
+      this.personalPermissions.HandledField.current!.checked = false;
+      this.personalPermissions.PybliclyField.current!.checked = false;
+      this.personalPermissions.HidenField.current!.checked = false;
+      this.gender.curentElemet.current!.value = '0';
+      this.date.current!.value = '';
+      this.file.current!.value = '';
     }
   }
 

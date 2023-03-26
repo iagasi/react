@@ -14,11 +14,6 @@ export class FormPermission extends Component<{ container: personalPermissions }
     if (!perms.includes(true)) {
       perm.error.current?.classList.add('dis-block');
       return false;
-    } else if (perms[0] && perms[2]) {
-      perm.error.current?.classList.add('dis-block');
-      perm.error.current!.innerText =
-        'Handled And Hiden can not  be checked at the same time.Only one';
-      return false;
     } else {
       perm.error.current?.classList.remove('dis-block');
       return true;

@@ -1,6 +1,4 @@
-import { fireEvent, getByText, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { selectOptions } from '@testing-library/user-event/dist/types/utility';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import React from 'react';
 import { vi } from 'vitest';
