@@ -48,5 +48,6 @@ export const mockCardItem: IFormCard = {
   img: 'https://9to5google.com/wp-content/uploads/sites/4/2020/04/google_doodle_coronavirus_helpers_1.jpg?quality=82&strip=all&w=1280',
   dateOfBorn: '11/00/2022',
   gender: 'Male',
+  countries: 'England',
   permissions: ['Allow', 'Hide'],
 };

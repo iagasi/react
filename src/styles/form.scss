@@ -56,7 +56,7 @@ $formGap: 40px;
   }
 }
 
-.form__gender {
+.form__countries {
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -98,7 +98,7 @@ $formGap: 40px;
   display: none;
   background-color: aqua;
 }
-.form__gender-select {
+.form__countries-select {
   border-radius: 10px;
 }
 
@@ -118,4 +118,9 @@ $formGap: 40px;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+}
+
+.form__gender {
+  position: relative;
+  margin-bottom: 20px;
 }

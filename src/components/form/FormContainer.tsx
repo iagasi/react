@@ -4,10 +4,11 @@ import { Form } from './Form';
 import { FormCard } from './FormCard';
 import FormDate from './FormDate';
 import { FormFile } from './FormFile';
-import { FormGender } from './FormGender';
+import { FormCountries } from './FormCountries';
 import { FormPermission } from './FormPermission';
 import { FormPersonal } from './FormPersonal';
-import { genderType, IFormCard, personalPermissions } from './types';
+import { countriesType, genderType, IFormCard, personalPermissions } from './types';
+import { SwitcherGender } from './SwitcherGender';
 
 interface IState {
   cards: Array<IFormCard | undefined>;
@@ -20,7 +21,9 @@ export class FormContainer extends React.Component<object, IState> {
   surnameError: React.RefObject<HTMLDivElement>;
   surname: React.RefObject<HTMLInputElement>;
   personalPermissions: personalPermissions;
+  countries: countriesType;
   gender: genderType;
+  genderError: React.RefObject<HTMLInputElement>;
   date: React.RefObject<HTMLInputElement>;
   dateError: React.RefObject<HTMLDivElement>;
   file: React.RefObject<HTMLInputElement>;
@@ -39,11 +42,18 @@ export class FormContainer extends React.Component<object, IState> {
       PybliclyField: React.createRef(),
       HidenField: React.createRef(),
     };
-    this.gender = {
+    this.countries = {
       curentElemet: React.createRef(),
       error: React.createRef(),
     };
 
+    this.gender = {
+      curr: '',
+      male: React.createRef(),
+      female: React.createRef(),
+      error: React.createRef(),
+    };
+    this.genderError = React.createRef();
     this.date = React.createRef();
     this.dateError = React.createRef();
     this.file = React.createRef();
@@ -59,17 +69,22 @@ export class FormContainer extends React.Component<object, IState> {
     const nameIs = FormPersonal.checkName(this.name, this.nameError);
     const surnameIs = FormPersonal.checkSurname(this.surname, this.surnameError);
     const permissionsIs = FormPermission.check(this.personalPermissions);
-    const genderIs = FormGender.check(this.gender);
+    const countriesIs = FormCountries.check(this.countries);
     const dateIs = FormDate.check(this);
     const url: string | undefined = FormFile.check(this);
-    console.log(this.personalPermissions.HandledField.current?.checked);
+    const genderIs = SwitcherGender.check(this.gender);
 
     const data: IFormCard = {
       name: this.name.current!.value,
       surname: this.surname.current!.value,
       img: url!,
       dateOfBorn: this.date.current!.value,
-      gender: this.gender.curentElemet.current!.value,
+      countries: this.countries.curentElemet.current!.value,
+      gender:
+        (this.gender.male.current!.checked && this.gender.male.current!.value) ||
+        (this.gender.female.current!.checked && this.gender.female.current!.value) ||
+        '',
+
       permissions: [
         this.personalPermissions.HandledField.current?.checked
           ? this.personalPermissions.HandledField.current?.value
@@ -82,16 +97,19 @@ export class FormContainer extends React.Component<object, IState> {
           : '',
       ],
     };
-    if (nameIs && surnameIs && permissionsIs && genderIs && dateIs && url) {
+    if (nameIs && surnameIs && permissionsIs && countriesIs && dateIs && url && genderIs) {
       this.setState((prev) => ({ cards: [...prev.cards, data] }));
       this.name.current!.value = '';
       this.surname.current!.value = '';
       this.personalPermissions.HandledField.current!.checked = false;
       this.personalPermissions.PybliclyField.current!.checked = false;
       this.personalPermissions.HidenField.current!.checked = false;
-      this.gender.curentElemet.current!.value = '0';
+      this.countries.curentElemet.current!.value = '0';
       this.date.current!.value = '';
       this.file.current!.value = '';
+      this.gender.male.current!.checked = false;
+      this.gender.female.current!.checked = false;
+      this.gender.curr = '';
     }
   }
 
@@ -101,8 +119,9 @@ export class FormContainer extends React.Component<object, IState> {
         <Form container={this}>
           <FormPersonal container={this} />
           <FormPermission container={this.personalPermissions} />
-          <FormGender container={this.gender} />
+          <FormCountries container={this.countries} />
           <FormDate container={this} />
+          <SwitcherGender curr={this.gender} />
           <FormFile container={this} />
         </Form>
         <div className="form-page__cards">

@@ -17,13 +17,14 @@ export class FormCard extends Component<{ data: IFormCard }> {
           </div>
           <div className="persinal-data__right">
             <div className="sec-span-bigger">
-              Gender:<span>{this.props.data.gender}</span>
+              Countries:<span>{this.props.data.countries}</span>
             </div>
             <div className="sec-span-bigger">
               Birdth: <span>{this.props.data.dateOfBorn}</span>
             </div>
           </div>
         </div>
+        <h4>Gender:{this.props.data.gender}</h4>
         <h4>Personal data will be</h4>
         <ul className="card__permissions">
           {this.props.data.permissions.map((e, i) => {
