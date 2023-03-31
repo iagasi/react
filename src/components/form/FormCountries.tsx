@@ -1,38 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormError } from './FormError';
-import { countriesType } from './types';
+import { countriesType, propsContainerType } from './types';
+export function countriesCheck(countries: countriesType) {
+  if (countries.curentElemet.current?.value == '0') {
+    countries.error.current?.classList.add('dis-block');
+  } else {
+    countries.error.current?.classList.remove('dis-block');
+    return true;
+  }
+}
 
-export class FormCountries extends Component<{ container: countriesType }> {
-  static check(countries: countriesType) {
-    if (countries.curentElemet.current?.value == '0') {
-      countries.error.current?.classList.add('dis-block');
-    } else {
-      countries.error.current?.classList.remove('dis-block');
-      return true;
-    }
-  }
-  render() {
-    return (
-      <div className="form__countries ">
-        <small>Countries:</small>
-        <select
-          className="form__countries-select"
-          name="countries"
-          defaultValue="ds"
-          ref={this.props.container.curentElemet}
-          data-testid="selectCountries"
-        >
-          <option value="0"></option>
-          <option value="england" data-testid="optionEng">
-            England
-          </option>
-          <option value="germany">Germany</option>
-          <option value="france">France</option>
-        </select>
-        <FormError refError={this.props.container.error}>
-          <div>SelectCountries</div>
-        </FormError>
-      </div>
-    );
-  }
+export function FormCountries(props: propsContainerType<countriesType>) {
+  return (
+    <div className="form__countries ">
+      <small>Countries:</small>
+      <select
+        className="form__countries-select"
+        name="countries"
+        defaultValue="ds"
+        ref={props.container.curentElemet}
+        data-testid="selectCountries"
+      >
+        <option value="0"></option>
+        <option value="england" data-testid="optionEng">
+          England
+        </option>
+        <option value="germany">Germany</option>
+        <option value="france">France</option>
+      </select>
+      <FormError refError={props.container.error}>
+        <div>SelectCountries</div>
+      </FormError>
+    </div>
+  );
 }
