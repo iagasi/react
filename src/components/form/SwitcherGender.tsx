@@ -2,8 +2,6 @@ import React from 'react';
 import { FormError } from './FormError';
 import { genderType, propsContainerType } from './types';
 
-type propsType = { curr: genderType };
-
 export function genderCheck(gender: genderType) {
   if (!gender.male.current?.checked && !gender.female.current?.checked) {
     gender.error.current?.classList.add('dis-block');

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { IFormCard } from './types';
 import '../../styles/card.scss';
 type propsType = {

@@ -1,6 +1,5 @@
 import React from 'react';
 import '../../styles/form.scss';
-import { FormContainer } from './FormContainer';
 interface Props {
   handler: (e: React.SyntheticEvent) => void;
   children: React.ReactNode;
