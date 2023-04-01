@@ -2,9 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/header.scss';
 
-// interface IHeaderState {
-//   route: string;
-// }
 export class Header extends React.Component {
   state = {
     route: '',
@@ -28,6 +25,10 @@ export class Header extends React.Component {
         <Link className="link-reset" to={'/about'}>
           {' '}
           <h2 className={this.state.route == 'about' ? 'link-active' : ''}>About</h2>
+        </Link>
+        <Link className="link-reset" to={'/form'}>
+          {' '}
+          <h2 className={this.state.route == 'form' ? 'link-active' : ''}>Form</h2>
         </Link>
       </header>
     );

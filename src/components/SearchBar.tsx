@@ -17,8 +17,6 @@ export class SearchBar extends React.Component<object, state> {
 
   componentDidMount() {
     const data = LocalStorage.get();
-    console.log(data);
-
     this.setState({
       searchText: data || '',
     });
@@ -32,8 +30,6 @@ export class SearchBar extends React.Component<object, state> {
     this.setState(() => ({
       searchText: e.target.value,
     }));
-
-    // LocalStorage.set(e.target.value);
   }
   render() {
     return (
