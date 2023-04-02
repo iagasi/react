@@ -1,4 +1,4 @@
-import { fireEvent, getByText, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { Form } from '../components/form/Form';
 import React from 'react';
 import { vi } from 'vitest';
