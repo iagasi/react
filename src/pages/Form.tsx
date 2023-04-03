@@ -1,12 +1,12 @@
 import { Header } from '../components/Header';
 import React from 'react';
-import { FormContainer } from '../components/form/FormContainer';
+import { Form } from '../components/form/Form';
 
 export function FormPage() {
   return (
     <div className="form-page">
       <Header />
-      <FormContainer />
+      <Form />
     </div>
   );
 }

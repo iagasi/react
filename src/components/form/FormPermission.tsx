@@ -1,24 +1,24 @@
 import React from 'react';
-import { FormError } from './FormError';
+import { IPropsForm } from './types';
 
-import { personalPermissionsType, propsContainerType } from './types';
-export function permissionsCheck(perm: personalPermissionsType) {
-  const perms = [
-    perm.HandledField.current?.checked,
-    perm.PybliclyField.current?.checked,
-    perm.HidenField.current?.checked,
-  ];
+export function FormPermission(props: IPropsForm) {
+  const {
+    watch,
+    register,
+    formState: { errors },
+  } = props.form;
 
-  if (!perms.includes(true)) {
-    perm.error.current?.classList.add('dis-block');
-    return false;
-  } else {
-    perm.error.current?.classList.remove('dis-block');
+  const w = watch(['handled', 'publicly', 'hiden']);
+
+  const validate = () => {
+    const isSelected = w.filter((e) => typeof e === 'string');
+
+    if (!isSelected.length) {
+      return 'Select At least one conset';
+    }
     return true;
-  }
-}
+  };
 
-export function FormPermission(props: propsContainerType<personalPermissionsType>) {
   return (
     <div className="form__permission">
       I consent to my personal data
@@ -26,23 +26,21 @@ export function FormPermission(props: propsContainerType<personalPermissionsType
       <label>
         <input
           type="checkbox"
-          ref={props.container.HandledField}
           value="Handled"
           data-testid="checkboxHandled"
+          {...register('handled', { validate: validate })}
         />
         Handled
       </label>
       <label>
-        <input type="checkbox" ref={props.container.PybliclyField} value="Publicly Aviable" />
+        <input type="checkbox" value="Publicly Aviable" {...register('publicly')} />
         Publicly Aviable
       </label>
       <label>
-        <input type="checkbox" ref={props.container.HidenField} value="Hiden" />
+        <input type="checkbox" value="Hiden" {...register('hiden')} />
         Hidden
       </label>
-      <FormError refError={props.container.error}>
-        <div>Select at least one</div>
-      </FormError>
+      {errors.handled && <span className="form__field-error ">{errors.handled?.message}</span>}
     </div>
   );
 }

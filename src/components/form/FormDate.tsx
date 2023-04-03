@@ -1,33 +1,29 @@
 import React from 'react';
-import { FormError } from './FormError';
-import { dateType, propsContainerType } from './types';
+import { IPropsForm } from './types';
 
-export function dateCheck(date: dateType) {
-  const selectedDate = date.curr.current?.value;
+function validate(selectedDate: string) {
   const splitedDate = selectedDate?.split('-');
-
-  if (!selectedDate) {
-    date.error.current?.classList.add('dis-block');
-  } else if (Number(splitedDate![0]) < 1990) {
-    date.error.current?.classList.add('dis-block');
-    date.error.current!.innerText = 'Select date above 1990';
-  } else {
-    date.error.current?.classList.remove('dis-block');
-    return true;
+  if (Number(splitedDate![0]) < 1990) {
+    return 'Select date above 1990';
   }
+  return true;
 }
-export default function FormDate(props: propsContainerType<dateType>) {
+export default function FormDate(props: IPropsForm) {
+  const {
+    register,
+    formState: { errors },
+  } = props.form;
   return (
     <div className="form__date">
       <input
+        {...register('date', { validate: validate })}
         className="form__input"
         type="date"
         min="2000-00-00"
         max="9999-12-31"
-        ref={props.container.curr}
         data-testid="formdate"
       />
-      <FormError refError={props.container.error}>Please Select date</FormError>
+      {errors.date && <span className="form__field-error ">{errors.date.message}</span>}
     </div>
   );
 }

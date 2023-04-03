@@ -1,6 +1,5 @@
-import React from 'react';
-import { FormError } from './FormError';
-import { genderType, propsContainerType } from './types';
+import React, { useState } from 'react';
+import { IPropsForm, genderType } from './types';
 
 export function genderCheck(gender: genderType) {
   if (!gender.male.current?.checked && !gender.female.current?.checked) {
@@ -11,15 +10,19 @@ export function genderCheck(gender: genderType) {
     return true;
   }
 }
-export function SwitcherGender(props: propsContainerType<genderType>) {
-  function handleChecbox(e: React.SyntheticEvent) {
-    const target = e.target as HTMLInputElement;
-    if (target.value === 'Male') {
-      props.container.female.current!.checked = false;
+export function SwitcherGender(props: IPropsForm) {
+  const [selectedCheckbox, setSelectedCheckbox] = useState('');
+  const {
+    register,
+    formState: { errors },
+  } = props.form;
+
+  function validate(e: string) {
+    setSelectedCheckbox(e);
+    if (!selectedCheckbox.length) {
+      return 'Select gender';
     }
-    if (target.value === 'Female') {
-      props.container.male.current!.checked = false;
-    }
+    return true;
   }
 
   return (
@@ -29,25 +32,22 @@ export function SwitcherGender(props: propsContainerType<genderType>) {
         <input
           type="checkbox"
           value="Male"
-          name="gender"
-          ref={props.container.male}
-          onClick={handleChecbox}
           data-testid="checkboxMale"
+          checked={selectedCheckbox === 'Male'}
+          onClick={() => setSelectedCheckbox('Male')}
+          {...register('genderMale', { validate: validate })}
         />
         <span style={{ marginRight: '10px' }}>Male</span>
         <input
           type="checkbox"
           value="Female"
-          name="gender"
-          ref={props.container.female}
-          onClick={handleChecbox}
+          checked={selectedCheckbox === 'Female'}
+          onClick={() => setSelectedCheckbox('Female')}
+          {...(register('genderFemale'), { validate: validate })}
         />
         <span>Female</span>
       </div>
-
-      <FormError refError={props.container.error}>
-        <div>SelectGender</div>
-      </FormError>
+      {errors.genderMale && <span className="form__field-error ">{errors.genderMale.message}</span>}
     </div>
   );
 }

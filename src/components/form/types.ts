@@ -1,3 +1,5 @@
+import { UseFormReturn } from 'react-hook-form';
+
 export type personalPermissionsType = {
   currentElement: React.RefObject<HTMLInputElement>;
   error: React.RefObject<HTMLInputElement>;
@@ -29,7 +31,7 @@ export type genderType = {
 export type formType = {
   formWrapperRef: React.RefObject<HTMLDivElement>;
 
-  personalPermissions: personalPermissions;
+  personalPermissions: personalPermissionsType;
   countries: countriesType;
   gender: genderType;
   genderError: React.RefObject<HTMLInputElement>;
@@ -53,6 +55,19 @@ export type personalType = {
   surnameError: React.RefObject<HTMLDivElement>;
   surname: React.RefObject<HTMLInputElement>;
 };
-export type propsContainerType<T> = {
-  container: T;
+
+export type Inputs = {
+  name: string;
+  surname: string;
+  handled: string;
+  publicly: string;
+  hiden: string;
+  countries: string;
+  genderMale: string;
+  genderFemale: string;
+  date: string;
+  file: string;
+};
+export type IPropsForm = {
+  form: UseFormReturn<Inputs>;
 };
