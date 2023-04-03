@@ -2,17 +2,17 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import React from 'react';
 import { vi } from 'vitest';
-import { FormContainer } from '../components/form/FormContainer';
+import { Form } from '../components/form/Form';
 
 describe('Form', () => {
   it('renders new created form', () => {
-    render(<FormContainer />);
+    render(<Form />);
     expect(screen.getByRole('form')).toBeInTheDocument();
   });
   it('rensders cards in form-page', () => {
     const file = new File(['hello'], 'test.png', { type: 'image/png' });
 
-    render(<FormContainer />);
+    render(<Form />);
     const n: HTMLInputElement = screen.getByPlaceholderText('Name');
     fireEvent.change(n, { target: { value: 'Test' } });
     expect(n.value).toBe('Test');
