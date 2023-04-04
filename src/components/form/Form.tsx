@@ -23,7 +23,7 @@ export function Form() {
       img: img,
       name: data.name,
       surname: data.surname,
-      gender: data.genderMale || data.genderFemale,
+      gender: data.gender,
       dateOfBorn: data.date,
       permissions: [data.handled, data.publicly, data.hiden],
       countries: data.countries,

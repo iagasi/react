@@ -63,6 +63,7 @@ export type Inputs = {
   publicly: string;
   hiden: string;
   countries: string;
+  gender: string;
   genderMale: string;
   genderFemale: string;
   date: string;
