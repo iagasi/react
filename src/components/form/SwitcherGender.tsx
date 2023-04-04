@@ -1,20 +1,11 @@
-import React, { useState } from 'react';
-import { IPropsForm, genderType } from './types';
+import React from 'react';
+import { IPropsForm } from './types';
 
 export function SwitcherGender(props: IPropsForm) {
-  // const [selectedCheckbox, setSelectedCheckbox] = useState('');
   const {
     register,
     formState: { errors },
   } = props.form;
-
-  // function validate(e: string) {
-  //   setSelectedCheckbox(e);
-  //   if (!selectedCheckbox.length) {
-  //     return 'Select gender';
-  //   }
-  //   return true;
-  // }
 
   return (
     <div className="form__gender ">
@@ -25,10 +16,9 @@ export function SwitcherGender(props: IPropsForm) {
           value="Male"
           data-testid="checkboxMale"
           defaultChecked={false}
-          // name="gender"
           {...register('gender', {
             required: true,
-            onChange: () => null
+            onChange: () => null,
           })}
         />
         <span style={{ marginRight: '10px' }}>Male</span>
@@ -36,7 +26,6 @@ export function SwitcherGender(props: IPropsForm) {
           type="radio"
           value="Female"
           defaultChecked={false}
-          // name="gender"
           {...register('gender', { required: true, onChange: () => null })}
         />
         <span>Female</span>

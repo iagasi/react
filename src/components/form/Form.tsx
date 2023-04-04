@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/form.scss';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FormPermission } from './FormPermission';
@@ -9,12 +9,25 @@ import { FormFile } from './FormFile';
 import { FormPersonal } from './FormPersonal';
 import { FormCard } from './FormCard';
 import { SwitcherGender } from './SwitcherGender';
-
+import FormCardAdded from './FormCardAdded';
 export function Form() {
+  const timer: ReturnType<typeof setTimeout> | null = null;
+
   const form = useForm<Inputs>();
+  const [modal, setModal] = useState<boolean | null | number>(timer);
   const [cards, setCards] = useState<IFormCard[]>([]);
   const { handleSubmit, reset } = form;
 
+  useEffect(() => {
+    function componentDidUpdate(): void {
+      if (modal) {
+        setTimeout(() => {
+          setModal(false);
+        }, 700);
+      }
+    }
+    componentDidUpdate();
+  }, [modal]);
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const file = new Blob([data.file[0]]);
     const img = URL.createObjectURL(file);
@@ -28,7 +41,7 @@ export function Form() {
       permissions: [data.handled, data.publicly, data.hiden],
       countries: data.countries,
     };
-
+    setModal(true);
     reset();
     setCards((prev) => [...prev, d]);
   };
@@ -45,6 +58,7 @@ export function Form() {
           <input className="form__submit " type="submit" />
         </div>
       </form>
+      {modal && <FormCardAdded />}
       <div className="form-page__cards">
         {cards.map((e, index) => (
           <FormCard key={index} data={e} />
