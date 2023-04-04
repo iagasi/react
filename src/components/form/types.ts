@@ -1,15 +1,5 @@
-export type personalPermissions = {
-  currentElement: React.RefObject<HTMLInputElement>;
-  error: React.RefObject<HTMLInputElement>;
-  HandledField: React.RefObject<HTMLInputElement>;
-  PybliclyField: React.RefObject<HTMLInputElement>;
-  HidenField: React.RefObject<HTMLInputElement>;
-};
+import { UseFormReturn } from 'react-hook-form';
 
-export type countriesType = {
-  curentElemet: React.RefObject<HTMLSelectElement>;
-  error: React.RefObject<HTMLDivElement>;
-};
 export type IFormCard = {
   img: string | undefined;
   name: string | undefined;
@@ -20,9 +10,17 @@ export type IFormCard = {
   dateOfBorn: string;
 };
 
-export type genderType = {
-  curr: string;
-  male: React.RefObject<HTMLInputElement>;
-  female: React.RefObject<HTMLInputElement>;
-  error: React.RefObject<HTMLDivElement>;
+export type Inputs = {
+  name: string;
+  surname: string;
+  handled: string;
+  publicly: string;
+  hiden: string;
+  countries: string;
+  gender: string;
+  date: string;
+  file: string;
+};
+export type IPropsForm = {
+  form: UseFormReturn<Inputs>;
 };

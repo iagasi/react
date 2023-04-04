@@ -6,29 +6,25 @@ import { Header } from './components/Header';
 import { About } from './pages/About';
 import { FormPage } from './pages/Form';
 
-export class App extends React.Component {
-  render() {
-    return (
-      <>
-        <Header />
-        <Main />
-      </>
-    );
-  }
+export function App() {
+  return (
+    <>
+      <Header />
+      <Main />
+    </>
+  );
 }
 
-export class RoutedApp extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="about" element={<About />} />
-          <Route path="form" element={<FormPage />} />
+export function RoutedApp() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="about" element={<About />} />
+        <Route path="form" element={<FormPage />} />
 
-          <Route path="*" element={<Page404 />} />
-        </Routes>
-      </BrowserRouter>
-    );
-  }
+        <Route path="*" element={<Page404 />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }

@@ -1,55 +1,46 @@
-import React, { Component } from 'react';
-import { FormError } from './FormError';
+import React from 'react';
+import { IPropsForm } from './types';
 
-import { personalPermissions } from './types';
+export function FormPermission(props: IPropsForm) {
+  const {
+    watch,
+    register,
+    formState: { errors },
+  } = props.form;
 
-export class FormPermission extends Component<{ container: personalPermissions }> {
-  static check(perm: personalPermissions) {
-    const perms = [
-      perm.HandledField.current?.checked,
-      perm.PybliclyField.current?.checked,
-      perm.HidenField.current?.checked,
-    ];
+  const w = watch(['handled', 'publicly', 'hiden']);
 
-    if (!perms.includes(true)) {
-      perm.error.current?.classList.add('dis-block');
-      return false;
-    } else {
-      perm.error.current?.classList.remove('dis-block');
-      return true;
+  const validate = () => {
+    const isSelected = w.filter((e) => typeof e === 'string');
+
+    if (!isSelected.length) {
+      return 'Select At least one conset';
     }
-  }
+    return true;
+  };
 
-  render() {
-    return (
-      <div className="form__permission">
-        I consent to my personal data
-        <br /> Will be:
-        <label>
-          <input
-            type="checkbox"
-            ref={this.props.container.HandledField}
-            value="Handled"
-            data-testid="checkboxHandled"
-          />
-          Handled
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            ref={this.props.container.PybliclyField}
-            value="Publicly Aviable"
-          />
-          Publicly Aviable
-        </label>
-        <label>
-          <input type="checkbox" ref={this.props.container.HidenField} value="Hiden" />
-          Hidden
-        </label>
-        <FormError refError={this.props.container.error}>
-          <div>Select at least one</div>
-        </FormError>
-      </div>
-    );
-  }
+  return (
+    <div className="form__permission">
+      I consent to my personal data
+      <br /> Will be:
+      <label>
+        <input
+          type="checkbox"
+          value="Handled"
+          data-testid="checkboxHandled"
+          {...register('handled', { validate: validate })}
+        />
+        Handled
+      </label>
+      <label>
+        <input type="checkbox" value="Publicly Aviable" {...register('publicly')} />
+        Publicly Aviable
+      </label>
+      <label>
+        <input type="checkbox" value="Hiden" {...register('hiden')} />
+        Hidden
+      </label>
+      {errors.handled && <span className="form__field-error ">{errors.handled?.message}</span>}
+    </div>
+  );
 }
