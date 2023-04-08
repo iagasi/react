@@ -6,7 +6,6 @@ type propsType = {
 };
 export const OpenedCard = (props: propsType) => {
   const item = props.item;
-  console.log(item);
 
   return (
     <div className="opened-card">

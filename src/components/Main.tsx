@@ -6,10 +6,10 @@ interface IProps {
 }
 export const MainComponent = (props: IProps) => {
   return (
-    <div>
+    <>
       {props.users.map((product) => {
         return <Item item={product} key={product.id} />;
       })}
-    </div>
+    </>
   );
 };

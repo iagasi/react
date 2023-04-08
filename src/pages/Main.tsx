@@ -1,36 +1,46 @@
-import { products } from '../data.json';
 import pr from '../d.json';
 import React, { useEffect, useState } from 'react';
 import { SearchBar } from '../components/SearchBar';
-import { Item } from '../components/Item';
 import '../styles/main.scss';
 import { MainComponent } from '../components/Main';
 import { userType } from 'types/userType';
+import { useLoader } from '../hooks';
+import { CHARACTER_URL } from '../constants';
+import { Spinner } from '../components/Spinner/Spinner';
 
-type x = {
+type responseUsersType = {
   results: userType[];
 };
-function getData(): Promise<x> {
-  return new Promise((res) => res(pr));
-}
 export function Main() {
-  const [products, setProducts] = useState<userType[]>([]);
-  useEffect(() => {
-    async function load() {
-      const t = await getData();
+  const [data, loading] = useLoader<responseUsersType>(CHARACTER_URL);
 
-      setProducts(t.results);
+  const [searchedUsers, setSearchedUsers] = useState<userType[]>([]);
+  const [error, setError] = useState(false);
+
+  function searchStateHandler(users: userType[] | userType) {
+    if (Array.isArray(users)) {
+      setSearchedUsers(users);
+    } else {
+      setSearchedUsers([users]);
     }
-    load();
-  }, []);
+  }
+
+  if (loading) {
+    return (
+      <div className="main">
+        <Spinner />;
+      </div>
+    );
+  }
   return (
     <div className="main__wrapper">
-      <SearchBar />
+      <SearchBar searchStateHandler={searchStateHandler} setError={setError} />
       <div className="main">
-        <MainComponent users={products} />
-        {/* {products.map((product) => {
-          return <Item item={product} key={product.id} />;
-        })} */}
+        {error ? (
+          <h1>Nothing Found</h1>
+        ) : (
+          <MainComponent users={searchedUsers.length ? searchedUsers : data ? data.results : []} />
+        )}
       </div>
     </div>
   );

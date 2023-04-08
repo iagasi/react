@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { userType } from 'types/userType';
-type useLoaderreturntype = [userType[] | userType | null, boolean];
+type useLoaderReturntype<T> = [T | null, boolean];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function useLoader(url: string, _urlParams?: string): useLoaderreturntype {
-  const [data, setData] = useState<userType[] | userType | null>(null);
+export function useLoader<Type>(url: string, _urlParams?: string): useLoaderReturntype<Type> {
+  const [data, setData] = useState<Type | null>(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
@@ -15,7 +14,7 @@ export function useLoader(url: string, _urlParams?: string): useLoaderreturntype
         setTimeout(() => {
           setData(res.data);
           setLoading(false);
-        }, 1000);
+        }, 400);
       }
     }
     load();
