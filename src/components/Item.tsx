@@ -1,25 +1,30 @@
-import { IItem } from 'intefaces';
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/item.scss';
+import { userType } from 'types/userType';
+import OpenCardContainer from './OpenCardContainer';
+import Modal from './Modal';
 type propsType = {
-  item: IItem;
+  item: userType;
 };
 export function Item(props: propsType) {
+  const [openCard, setOpenCard] = useState(false);
+  function closeModal() {
+    setOpenCard(false);
+  }
   const item = props.item;
   return (
-    <div className="item">
-      <img className="item__img" src={item.thumbnail} />
-      <h2 className="item__price"> $ {item.price}</h2>
-      <div className="item__about">
-        <div>
-          <p className="item__model">{item.title}</p>
-          <p className="item__description">{item.description}</p>
-          <p className="item__brand">{item.brand}</p>
-        </div>
-        <div className="item__options">
-          <img className="item__message" src="/message.png" alt="" />
-        </div>
+    <>
+      <div className="item" onClick={() => setOpenCard(true)}>
+        <img className="item__img" src={item.image} />
+        <h2 className="item__price"> {item.name}</h2>
+        <h2 className="item__model"> Planet : {item.origin.name}</h2>
+
+        <div className="item__about"></div>
       </div>
-    </div>
+
+      <Modal isOpen={openCard} close={closeModal}>
+        <OpenCardContainer id={item.id.toString()} />
+      </Modal>
+    </>
   );
 }

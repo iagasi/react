@@ -1,0 +1,75 @@
+.opened-card {
+  position: relative;
+  display: flex;
+  height: 80vh;
+  width: 80vw;
+  background-color: white;
+  border-radius: 10px;
+  font-family: sans-serif;
+
+  &__long-info {
+    padding: 30px;
+  }
+  &__img {
+    height: 500px;
+    width: 500px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+  &__main-info {
+    color: rgb(45, 6, 95);
+    background-color: rgb(220, 220, 220);
+    text-align: center;
+    font-size: 2rem;
+  }
+  &__about {
+    font-size: 1.2rem;
+    padding-left: 20px;
+    font-style: italic;
+    color: green;
+    font-weight: 800;
+  }
+  &__about-me {
+    font-weight: 600;
+    color: blueviolet;
+    place-items: center;
+  }
+  &__load-more {
+    background-color: gray;
+    color: white;
+    padding: 5px;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  &__closeBtn {
+    position: absolute;
+    right: -30px;
+    top: -30px;
+    background-color: red;
+    border: none;
+    color: white;
+    font-size: large;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+  &__messageImg {
+    position: absolute;
+    cursor: pointer;
+    width: 80px;
+    height: 80px;
+    right: 30px;
+    bottom: 30px;
+  }
+}
+
+.flexgap20px {
+  display: flex;
+  gap: 20px;
+}
+.font20colorblue {
+  font-size: 20px;
+  color: blue;
+  font-weight: 600;
+}

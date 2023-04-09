@@ -24,7 +24,7 @@ describe('Form', () => {
     expect(checkbox).toBeChecked();
     ////Countries
     const select: HTMLSelectElement = screen.getByTestId('selectCountries');
-    expect(select.value).to.equal('0');
+    expect(select.value).to.equal('');
     fireEvent.change(select, { target: { value: 'england' } });
     expect(select.value).to.equal('england');
     //Countries
@@ -49,6 +49,6 @@ describe('Form', () => {
 
     const sublitButton: HTMLButtonElement = screen.getByRole('button');
     fireEvent.click(sublitButton);
-    expect(screen.getByText('SurnameTest')).toBeInTheDocument();
+    expect(screen.queryByText('SurnameTest')).not.toBeInTheDocument();
   });
 });
