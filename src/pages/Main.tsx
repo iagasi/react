@@ -1,5 +1,4 @@
-import pr from '../d.json';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { SearchBar } from '../components/SearchBar';
 import '../styles/main.scss';
 import { MainComponent } from '../components/Main';

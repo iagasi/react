@@ -5,7 +5,7 @@ import { mockItem } from './mockData';
 
 describe('Iitem', () => {
   it('correctly renders', () => {
-    const { container } = render(<Item item={mockItem[0]} />);
+    const { container } = render(<Item item={mockItem.results[0]} />);
     expect(container).toHaveTextContent('MockTitle');
   });
 });

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { LocalStorage } from '../utils/localstorage';
 import '../styles/search.scss';
 import axios from 'axios';

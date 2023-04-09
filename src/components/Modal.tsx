@@ -1,4 +1,4 @@
-import React, { ReactNode, SyntheticEvent, useState } from 'react';
+import React, { ReactNode, SyntheticEvent } from 'react';
 import '../styles/modal.scss';
 interface Props {
   children: ReactNode;
