@@ -1,62 +1,39 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { LocalStorage } from '../utils/localstorage';
+import React, { useEffect, useState } from 'react';
 import '../styles/search.scss';
-import axios from 'axios';
-import { CHARACTER_URL } from '../constants';
-import { userType } from 'types/userType';
 import { useSelector, useDispatch } from 'react-redux';
 import { SearchState } from 'redux/store';
-import { add } from '../redux/searchSlice';
-async function $loadDataByCondition(condition: string) {
-  const res = await axios.get(CHARACTER_URL + condition);
-  return res;
-}
+import { add, handleError, searchResultsHandler } from '../redux/searchSlice';
+import { useGetCharacterByNameQuery } from '../redux/rtk';
 
-type Iprops = {
-  searchStateHandler: (users: userType[] | userType) => void;
-  setError: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-export function SearchBar(props: Iprops) {
-  // const [searchText, setSearchText] = useState('');
+export function SearchBar() {
+  const [skip, setSkip] = useState(true);
   const { value: searchText } = useSelector((state: SearchState) => state.search);
+  const { data, error } = useGetCharacterByNameQuery(searchText);
   const dispatch = useDispatch();
 
+  if (error) {
+    dispatch(handleError(true));
+  }
+
   useEffect(() => {
-    async function load() {
-      try {
-        const res = await $loadDataByCondition(`?name=${searchText}`);
-        props.searchStateHandler(res.data.results);
-      } catch (e) {
-        props.setError(true);
-      }
-    }
-    load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  useEffect(() => {
+    dispatch(searchResultsHandler(data?.results));
+    dispatch(handleError(false));
     if (!searchText.length) {
-      props.setError(false);
-      props.searchStateHandler([]);
+      dispatch(handleError(false));
+      dispatch(searchResultsHandler([]));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchText]);
+  }, [searchText, skip]);
   function searchTextHandler(e: React.ChangeEvent<HTMLInputElement> | string) {
     if (typeof e === 'string') {
+      console.log(e);
+
       dispatch(add(e));
     } else {
       dispatch(add(e.target.value));
     }
   }
-  async function searchHandler() {
-    try {
-      props.setError(false);
-      const res = await $loadDataByCondition(`?name=${searchText}`);
-      props.searchStateHandler(res.data.results);
-    } catch (e) {
-      props.setError(true);
-    }
-  }
+
   return (
     <div className="search__wrapper">
       <div className="search" data-testid="test-search">
@@ -72,7 +49,8 @@ export function SearchBar(props: Iprops) {
             <button
               className="search__delete-btn"
               onClick={() => {
-                searchTextHandler(''), props.searchStateHandler([]);
+                dispatch(add(''));
+                dispatch(searchResultsHandler([]));
               }}
             >
               x
@@ -82,9 +60,14 @@ export function SearchBar(props: Iprops) {
           ''
         )}
       </div>
-      <button className="search__btn" onClick={searchHandler} disabled={!searchText}>
+      {/* <button
+        className="search__btn"
+        onClick={() => {
+          setSkip(!skip);
+        }}
+      >
         Search
-      </button>
+      </button> */}
     </div>
   );
 }

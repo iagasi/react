@@ -1,5 +1,8 @@
 import React from 'react';
 import { IPropsForm } from './types';
+import { useTypedUseSelector } from '../../redux/store';
+import { useDispatch } from 'react-redux';
+import { name, surname } from '../../redux/formSlice';
 const validateFirstLetterUppercase = (value: string) => {
   if (value.length < 2) {
     return 'MinLength 2 characters';
@@ -10,6 +13,10 @@ const validateFirstLetterUppercase = (value: string) => {
   return true;
 };
 export const FormPersonal = (props: IPropsForm) => {
+  const { form } = useTypedUseSelector((data) => data);
+  const dispatch = useDispatch();
+  console.log(form.name);
+
   const {
     register,
     formState: { errors },
@@ -25,6 +32,8 @@ export const FormPersonal = (props: IPropsForm) => {
             {...register('name', {
               validate: validateFirstLetterUppercase,
             })}
+            value={form.name}
+            onChange={(e) => dispatch(name(e.target.value))}
           />
           {errors.name && <span className="form__field-error ">{errors.name.message}</span>}
         </div>
@@ -36,6 +45,8 @@ export const FormPersonal = (props: IPropsForm) => {
             {...register('surname', {
               validate: validateFirstLetterUppercase,
             })}
+            value={form.surname}
+            onChange={(e) => dispatch(surname(e.target.value))}
           />
           {errors.surname && <span className="form__field-error ">{errors.surname.message}</span>}
         </div>

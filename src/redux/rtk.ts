@@ -15,7 +15,11 @@ export const characterApi = createApi({
     getCharacterById: builder.query<userType, string>({
       query: (id) => `character/${id}`,
     }),
+    getCharacterByName: builder.query<responseUsersType, string>({
+      query: (name) => `character?name=${name}`,
+    }),
   }),
 });
 
-export const { useGetCharactersQuery, useGetCharacterByIdQuery } = characterApi;
+export const { useGetCharactersQuery, useGetCharacterByIdQuery, useGetCharacterByNameQuery } =
+  characterApi;
