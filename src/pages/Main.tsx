@@ -3,15 +3,15 @@ import { SearchBar } from '../components/SearchBar';
 import '../styles/main.scss';
 import { MainComponent } from '../components/Main';
 import { userType } from 'types/userType';
-import { useLoader } from '../hooks';
-import { CHARACTER_URL } from '../constants';
 import { Spinner } from '../components/Spinner/Spinner';
+import { useGetCharactersQuery } from '../redux/rtk';
 
 type responseUsersType = {
   results: userType[];
 };
 export function Main() {
-  const [data, loading] = useLoader<responseUsersType>(CHARACTER_URL);
+  const { data, isLoading } = useGetCharactersQuery('allCharacters');
+  console.log(data?.results);
 
   const [searchedUsers, setSearchedUsers] = useState<userType[]>([]);
   const [error, setError] = useState(false);
@@ -24,7 +24,7 @@ export function Main() {
     }
   }
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="main">
         <Spinner />;
