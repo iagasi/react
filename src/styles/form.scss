@@ -1,16 +1,16 @@
-$formGap: 40px;
+$formGap: 20px;
 .form-page {
   background-color: rgb(255, 255, 255);
 }
 .form {
   margin: 50px auto;
-  border: 2px solid rgba(1, 1, 2, 0.2);
+  box-shadow: 1px 2px 4px 8px rgba(53, 173, 61, 0.2);
   min-width: 320px;
-  background-color: white;
+  background-color: rgb(234, 231, 231);
   width: fit-content;
   padding: $formGap;
   font-size: 18px;
-  background-color: rgb(255, 255, 255);
+
   border-radius: 10px;
 
   &__container {

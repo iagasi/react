@@ -15,7 +15,6 @@ const validateFirstLetterUppercase = (value: string) => {
 export const FormPersonal = (props: IPropsForm) => {
   const { form } = useTypedUseSelector((data) => data);
   const dispatch = useDispatch();
-  console.log(form.name);
 
   const {
     register,

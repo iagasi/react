@@ -15,7 +15,6 @@ export const store = configureStore({
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 export type SearchState = Pick<RootState, 'search'>;
-type FormState = Pick<RootState, 'form'>;
 export function useTypedUseSelector(fn: (state: RootState) => RootState) {
   return useSelector(fn);
 }

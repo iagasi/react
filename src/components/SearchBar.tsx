@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import '../styles/search.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { SearchState } from 'redux/store';
@@ -6,7 +6,6 @@ import { add, handleError, searchResultsHandler } from '../redux/searchSlice';
 import { useGetCharacterByNameQuery } from '../redux/rtk';
 
 export function SearchBar() {
-  const [skip, setSkip] = useState(true);
   const { value: searchText } = useSelector((state: SearchState) => state.search);
   const { data, error } = useGetCharacterByNameQuery(searchText);
   const dispatch = useDispatch();
@@ -16,18 +15,16 @@ export function SearchBar() {
   }
 
   useEffect(() => {
-    dispatch(searchResultsHandler(data?.results));
+    dispatch(searchResultsHandler(data?.results || []));
     dispatch(handleError(false));
     if (!searchText.length) {
       dispatch(handleError(false));
       dispatch(searchResultsHandler([]));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchText, skip]);
+  }, [searchText]);
   function searchTextHandler(e: React.ChangeEvent<HTMLInputElement> | string) {
     if (typeof e === 'string') {
-      console.log(e);
-
       dispatch(add(e));
     } else {
       dispatch(add(e.target.value));

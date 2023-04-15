@@ -1,5 +1,8 @@
 import React from 'react';
 import { IPropsForm } from './types';
+import { useDispatch } from 'react-redux';
+import { useTypedUseSelector } from '../../redux/store';
+import { date } from '../../redux/formSlice';
 
 function validate(selectedDate: string) {
   const splitedDate = selectedDate?.split('-');
@@ -9,6 +12,8 @@ function validate(selectedDate: string) {
   return true;
 }
 export default function FormDate(props: IPropsForm) {
+  const { form } = useTypedUseSelector((data) => data);
+  const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
@@ -22,6 +27,10 @@ export default function FormDate(props: IPropsForm) {
         min="2000-00-00"
         max="9999-12-31"
         data-testid="formdate"
+        value={form.date}
+        onChange={(e) => {
+          dispatch(date(e.target.value));
+        }}
       />
       {errors.date && <span className="form__field-error ">{errors.date.message}</span>}
     </div>

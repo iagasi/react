@@ -19,9 +19,7 @@ export const searchSlice = createSlice({
     add: (state, value) => {
       state.value = value.payload;
     },
-    remove: (state) => {
-      state.value = state.value.slice(0, -1);
-    },
+
     handleError: (state, { payload }) => {
       state.searchError = payload;
     },
@@ -31,6 +29,6 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { add, remove, handleError, searchResultsHandler } = searchSlice.actions;
+export const { add, handleError, searchResultsHandler } = searchSlice.actions;
 
 export default searchSlice.reducer;

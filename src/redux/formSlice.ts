@@ -1,20 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IFormCard } from 'components/form/types';
 export interface FormState {
   name: string;
   surname: string;
-  personalData: [];
+  personalData: string[];
   countries: string;
   date: string;
   gender: string;
+  file: string;
+  createdCards: IFormCard[];
 }
 
 const initialState: FormState = {
-  name: '777',
+  name: '',
   surname: '',
   personalData: [],
   countries: '',
   date: '',
   gender: '',
+  file: '',
+
+  createdCards: [],
 };
 
 export const searchSlice = createSlice({
@@ -27,8 +33,12 @@ export const searchSlice = createSlice({
     surname: (state, value) => {
       state.surname = value.payload;
     },
-    personalDate: (state, { payload }) => {
-      state.personalData = payload;
+    personalData: (state, { payload }) => {
+      if (state.personalData.includes(payload)) {
+        state.personalData = state.personalData.filter((e) => e !== payload);
+      } else {
+        state.personalData.push(payload);
+      }
     },
     countries: (state, value) => {
       state.countries = value.payload;
@@ -39,9 +49,24 @@ export const searchSlice = createSlice({
     gender: (state, value) => {
       state.gender = value.payload;
     },
+    file: (state, value) => {
+      state.file = value.payload;
+    },
+    setFormCards: (state, value) => {
+      state.createdCards.push(value.payload);
+    },
+    reset: (state) => {
+      (state.countries = ''),
+        (state.date = ''),
+        (state.gender = ''),
+        (state.name = ''),
+        (state.personalData = []),
+        (state.surname = '');
+    },
   },
 });
 
-export const { name, surname, personalDate, countries, date, gender } = searchSlice.actions;
+export const { name, surname, personalData, countries, date, gender, file, setFormCards, reset } =
+  searchSlice.actions;
 
 export default searchSlice.reducer;

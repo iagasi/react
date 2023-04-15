@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SearchBar } from '../components/SearchBar';
 import '../styles/main.scss';
 import { MainComponent } from '../components/Main';
-import { userType } from 'types/userType';
 import { Spinner } from '../components/Spinner/Spinner';
 import { useGetCharactersQuery } from '../redux/rtk';
 import { useSelector } from 'react-redux';

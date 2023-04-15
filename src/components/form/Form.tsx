@@ -10,13 +10,18 @@ import { FormPersonal } from './FormPersonal';
 import { FormCard } from './FormCard';
 import { SwitcherGender } from './SwitcherGender';
 import FormCardAdded from './FormCardAdded';
+import { useDispatch } from 'react-redux';
+import { reset as formReset, setFormCards } from '../../redux/formSlice';
+import { useTypedUseSelector } from '../../redux/store';
 export function Form() {
   const timer: ReturnType<typeof setTimeout> | null = null;
 
   const form = useForm<Inputs>();
   const [modal, setModal] = useState<boolean | null | number>(timer);
-  const [cards, setCards] = useState<IFormCard[]>([]);
   const { handleSubmit, reset } = form;
+  const { form: formData } = useTypedUseSelector((data) => data);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     function componentDidUpdate(): void {
@@ -28,6 +33,7 @@ export function Form() {
     }
     componentDidUpdate();
   }, [modal]);
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const file = new Blob([data.file[0]]);
     const img = URL.createObjectURL(file);
@@ -43,7 +49,8 @@ export function Form() {
     };
     setModal(true);
     reset();
-    setCards((prev) => [...prev, d]);
+    dispatch(setFormCards(d));
+    dispatch(formReset());
   };
   return (
     <div>
@@ -60,7 +67,7 @@ export function Form() {
       </form>
       {modal && <FormCardAdded />}
       <div className="form-page__cards">
-        {cards.map((e, index) => (
+        {formData.createdCards.map((e, index) => (
           <FormCard key={index} data={e} />
         ))}
       </div>
