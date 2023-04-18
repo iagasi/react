@@ -1,7 +1,13 @@
 import React from 'react';
 import { IPropsForm } from './types';
+import { useDispatch } from 'react-redux';
+import { useTypedUseSelector } from '../../redux/store';
+import { countries } from '../../redux/formSlice';
 
 export function FormCountries(props: IPropsForm) {
+  const { form } = useTypedUseSelector((data) => data);
+  const dispatch = useDispatch();
+
   const {
     register,
     formState: { errors },
@@ -13,8 +19,9 @@ export function FormCountries(props: IPropsForm) {
         {...register('countries', { required: true })}
         className="form__countries-select"
         name="countries"
-        defaultValue="ds"
         data-testid="selectCountries"
+        onChange={(e) => dispatch(countries(e.target.value))}
+        value={form.countries}
       >
         <option value=""></option>
         <option value="england" data-testid="optionEng">

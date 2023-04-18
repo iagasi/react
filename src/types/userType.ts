@@ -18,3 +18,6 @@ export type userType = {
   url: string;
   created: string;
 };
+export type responseUsersType = {
+  results: userType[];
+};

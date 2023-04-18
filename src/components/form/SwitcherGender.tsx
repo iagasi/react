@@ -1,7 +1,11 @@
 import React from 'react';
 import { IPropsForm } from './types';
-
+import { useDispatch } from 'react-redux';
+import { useTypedUseSelector } from '../../redux/store';
+import { gender } from '../../redux/formSlice';
 export function SwitcherGender(props: IPropsForm) {
+  const { form } = useTypedUseSelector((data) => data);
+  const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
@@ -15,18 +19,19 @@ export function SwitcherGender(props: IPropsForm) {
           type="radio"
           value="Male"
           data-testid="checkboxMale"
-          defaultChecked={false}
           {...register('gender', {
             required: true,
-            onChange: () => null,
           })}
+          onChange={() => dispatch(gender('male'))}
+          checked={form.gender === 'male'}
         />
         <span style={{ marginRight: '10px' }}>Male</span>
         <input
           type="radio"
           value="Female"
-          defaultChecked={false}
-          {...register('gender', { required: true, onChange: () => null })}
+          {...register('gender', { required: true })}
+          onChange={() => dispatch(gender('female'))}
+          checked={form.gender === 'female'}
         />
         <span>Female</span>
       </div>

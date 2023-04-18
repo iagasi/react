@@ -1,73 +1,40 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { LocalStorage } from '../utils/localstorage';
+import React from 'react';
 import '../styles/search.scss';
-import axios from 'axios';
-import { CHARACTER_URL } from '../constants';
-import { userType } from 'types/userType';
+import { useSelector, useDispatch } from 'react-redux';
+import { SearchState } from 'redux/store';
+import { add, searchButton } from '../redux/searchSlice';
 
-async function $loadDataByCondition(condition: string) {
-  const res = await axios.get(CHARACTER_URL + condition);
-  return res;
-}
+export function SearchBar() {
+  const { value: searchText } = useSelector((state: SearchState) => state.search);
 
-type Iprops = {
-  searchStateHandler: (users: userType[] | userType) => void;
-  setError: React.Dispatch<React.SetStateAction<boolean>>;
-};
+  const dispatch = useDispatch();
 
-export function SearchBar(props: Iprops) {
-  const [searchText, setSearchText] = useState('');
-
-  useMemo(() => {
-    const data = LocalStorage.get();
-    setSearchText(data || '');
-  }, []);
-  useEffect(() => {
-    async function load() {
-      try {
-        const res = await $loadDataByCondition(`?name=${searchText}`);
-        props.searchStateHandler(res.data.results);
-      } catch (e) {
-        props.setError(true);
-      }
+  function searchTextHandler(e: React.ChangeEvent<HTMLInputElement> | string) {
+    if (typeof e === 'string') {
+      dispatch(add(e));
+    } else {
+      dispatch(add(e.target.value));
     }
-    load();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  useEffect(() => {
-    if (!searchText.length) {
-      props.setError(false);
-      props.searchStateHandler([]);
-    }
-
-    LocalStorage.set(searchText);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchText]);
-  function add(e: React.ChangeEvent<HTMLInputElement>) {
-    setSearchText(e.target.value);
   }
-  async function searchHandler() {
-    try {
-      props.setError(false);
-      const res = await $loadDataByCondition(`?name=${searchText}`);
-      props.searchStateHandler(res.data.results);
-    } catch (e) {
-      props.setError(true);
-    }
+  function searchHandler() {
+    dispatch(searchButton(searchText));
   }
   return (
     <div className="search__wrapper">
       <div className="search" data-testid="test-search">
         <img className="search__icon" src="/search.png" alt="" />
-        <input className="search__input" type="text" value={searchText} onChange={(e) => add(e)} />
+        <input
+          className="search__input"
+          type="text"
+          value={searchText}
+          onChange={(e) => searchTextHandler(e)}
+        />
         {searchText.length ? (
           <div className="search__handler">
             <button
               className="search__delete-btn"
               onClick={() => {
-                setSearchText(''), props.searchStateHandler([]);
+                dispatch(add(''));
               }}
             >
               x
@@ -77,7 +44,12 @@ export function SearchBar(props: Iprops) {
           ''
         )}
       </div>
-      <button className="search__btn" onClick={searchHandler} disabled={!searchText}>
+      <button
+        className="search__btn"
+        onClick={() => {
+          searchHandler();
+        }}
+      >
         Search
       </button>
     </div>

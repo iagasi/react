@@ -3,16 +3,26 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { vi } from 'vitest';
 import { Form } from '../components/form/Form';
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
 describe('Form', () => {
   it('renders new created form', () => {
-    render(<Form />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     expect(screen.getByRole('form')).toBeInTheDocument();
   });
   it('rensders cards in form-page', () => {
     const file = new File(['hello'], 'test.png', { type: 'image/png' });
 
-    render(<Form />);
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>
+    );
     const n: HTMLInputElement = screen.getByPlaceholderText('Name');
     fireEvent.change(n, { target: { value: 'Test' } });
     expect(n.value).toBe('Test');

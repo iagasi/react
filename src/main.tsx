@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RoutedApp } from './App';
-import './index.css';
+import { Provider } from 'react-redux';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(<RoutedApp />);
+import './index.css';
+import { store } from './redux/store';
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <Provider store={store}>
+    <RoutedApp />
+  </Provider>
+);

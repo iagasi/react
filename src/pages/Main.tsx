@@ -1,30 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { SearchBar } from '../components/SearchBar';
 import '../styles/main.scss';
 import { MainComponent } from '../components/Main';
-import { userType } from 'types/userType';
-import { useLoader } from '../hooks';
-import { CHARACTER_URL } from '../constants';
 import { Spinner } from '../components/Spinner/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchState } from 'redux/store';
+import { useGetCharacterByNameQuery } from '../redux/rtk';
+import { handleError, searchResultsHandler } from '../redux/searchSlice';
 
-type responseUsersType = {
-  results: userType[];
-};
 export function Main() {
-  const [data, loading] = useLoader<responseUsersType>(CHARACTER_URL);
+  const { findThis } = useSelector((state: SearchState) => state.search);
 
-  const [searchedUsers, setSearchedUsers] = useState<userType[]>([]);
-  const [error, setError] = useState(false);
+  const { data, error, isLoading } = useGetCharacterByNameQuery(findThis);
+  const dispatch = useDispatch();
 
-  function searchStateHandler(users: userType[] | userType) {
-    if (Array.isArray(users)) {
-      setSearchedUsers(users);
-    } else {
-      setSearchedUsers([users]);
-    }
+  const { searchResults } = useSelector((state: SearchState) => state.search);
+  useEffect(() => {
+    dispatch(searchResultsHandler(data?.results || []));
+    dispatch(handleError(false));
+  }, [data?.results, dispatch]);
+
+  if (error) {
+    return (
+      <div className="main__wrapper">
+        <SearchBar />
+        <div className="main">
+          <h1>Nothing Found</h1>
+        </div>
+      </div>
+    );
   }
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="main">
         <Spinner />;
@@ -33,13 +39,9 @@ export function Main() {
   }
   return (
     <div className="main__wrapper">
-      <SearchBar searchStateHandler={searchStateHandler} setError={setError} />
+      <SearchBar />
       <div className="main">
-        {error ? (
-          <h1>Nothing Found</h1>
-        ) : (
-          <MainComponent users={searchedUsers.length ? searchedUsers : data ? data.results : []} />
-        )}
+        <MainComponent users={searchResults.length ? searchResults : []} />
       </div>
     </div>
   );

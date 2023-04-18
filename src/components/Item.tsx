@@ -12,6 +12,7 @@ export function Item(props: propsType) {
     setOpenCard(false);
   }
   const item = props.item;
+
   return (
     <>
       <div className="item" onClick={() => setOpenCard(true)}>

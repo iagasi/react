@@ -1,5 +1,8 @@
 import React from 'react';
 import { IPropsForm } from './types';
+// import { useDispatch } from 'react-redux';
+// import { useTypedUseSelector } from '../../redux/store';
+// import { file as saveFile } from '../../redux/formSlice';
 
 export function FormFile(props: IPropsForm) {
   const {
@@ -12,10 +15,12 @@ export function FormFile(props: IPropsForm) {
       <label className="form__file">
         Upload File
         <input
-          {...register('file', { required: true })}
           className="file__input"
           type="file"
           placeholder="uploadImg"
+          {...register('file', {
+            required: true,
+          })}
         />
       </label>
       {errors.file && <span className="form__field-error ">{'Select file'}</span>}
