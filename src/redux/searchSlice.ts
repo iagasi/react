@@ -4,12 +4,14 @@ export interface SearchState {
   value: string;
   searchError: boolean;
   searchResults: userType[];
+  findThis: string;
 }
 
 const initialState: SearchState = {
   value: '',
   searchError: false,
   searchResults: [],
+  findThis: '',
 };
 
 export const searchSlice = createSlice({
@@ -26,9 +28,12 @@ export const searchSlice = createSlice({
     searchResultsHandler: (state, value) => {
       state.searchResults = value.payload;
     },
+    searchButton: (state, value) => {
+      state.findThis = value.payload;
+    },
   },
 });
 
-export const { add, handleError, searchResultsHandler } = searchSlice.actions;
+export const { add, handleError, searchResultsHandler, searchButton } = searchSlice.actions;
 
 export default searchSlice.reducer;

@@ -1,16 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SearchBar } from '../components/SearchBar';
 import '../styles/main.scss';
 import { MainComponent } from '../components/Main';
 import { Spinner } from '../components/Spinner/Spinner';
-import { useGetCharactersQuery } from '../redux/rtk';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SearchState } from 'redux/store';
+import { useGetCharacterByNameQuery } from '../redux/rtk';
+import { handleError, searchResultsHandler } from '../redux/searchSlice';
 
 export function Main() {
-  const { data, isLoading } = useGetCharactersQuery('allCharacters');
-  const { searchError, searchResults } = useSelector((state: SearchState) => state.search);
+  const { findThis } = useSelector((state: SearchState) => state.search);
 
+  const { data, error, isLoading } = useGetCharacterByNameQuery(findThis);
+  const dispatch = useDispatch();
+
+  const { searchResults } = useSelector((state: SearchState) => state.search);
+  useEffect(() => {
+    dispatch(searchResultsHandler(data?.results || []));
+    dispatch(handleError(false));
+  }, [data?.results, dispatch]);
+
+  if (error) {
+    return (
+      <div className="main__wrapper">
+        <SearchBar />
+        <div className="main">
+          <h1>Nothing Found</h1>
+        </div>
+      </div>
+    );
+  }
   if (isLoading) {
     return (
       <div className="main">
@@ -22,11 +41,7 @@ export function Main() {
     <div className="main__wrapper">
       <SearchBar />
       <div className="main">
-        {searchError ? (
-          <h1>Nothing Found</h1>
-        ) : (
-          <MainComponent users={searchResults.length ? searchResults : data ? data.results : []} />
-        )}
+        <MainComponent users={searchResults.length ? searchResults : []} />
       </div>
     </div>
   );

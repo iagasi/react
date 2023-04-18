@@ -3,6 +3,7 @@ import searchSlice from './searchSlice';
 import { characterApi } from './rtk';
 import formSlice from './formSlice';
 import { useSelector } from 'react-redux';
+
 export const store = configureStore({
   reducer: {
     search: searchSlice,
