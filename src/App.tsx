@@ -15,16 +15,20 @@ export function App() {
   );
 }
 
+export function AppRouting() {
+  return (
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="about" element={<About />} />
+      <Route path="form" element={<FormPage />} />
+      <Route path="*" element={<Page404 />} />
+    </Routes>
+  );
+}
 export function RoutedApp() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="about" element={<About />} />
-        <Route path="form" element={<FormPage />} />
-
-        <Route path="*" element={<Page404 />} />
-      </Routes>
+      <AppRouting />
     </BrowserRouter>
   );
 }
