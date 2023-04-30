@@ -1,9 +1,38 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, BaseQueryFn } from '@reduxjs/toolkit/query/react';
 import { baseUrl } from '../constants';
 import { userType } from 'types/userType';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 type responseUsersType = {
   results: userType[];
 };
+
+const axiosBaseQuery =
+  (
+    { baseUrl }: { baseUrl: string } = { baseUrl: '' }
+  ): BaseQueryFn<
+    {
+      url: string;
+      method: AxiosRequestConfig['method'];
+      data?: AxiosRequestConfig['data'];
+    },
+    unknown,
+    unknown
+  > =>
+  async ({ url, method, data }) => {
+    try {
+      const result = await axios({
+        url: baseUrl + url,
+        method,
+        data,
+      });
+      return result;
+    } catch (axiosError) {
+      const err = axiosError as AxiosError;
+      console.clear();
+
+      return { error: { status: 200, data: err.response?.data } };
+    }
+  };
 
 function handleUrl(name: string) {
   if (name.length) {
@@ -15,20 +44,26 @@ function handleUrl(name: string) {
 
 export const characterApi = createApi({
   reducerPath: 'characterApi',
-  baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
+  baseQuery: axiosBaseQuery({ baseUrl }),
 
   endpoints: (builder) => ({
     getCharacters: builder.query<responseUsersType, string>({
-      query: () => 'character',
+      query: () => ({ url: 'character', method: 'GET' }),
     }),
     getCharacterById: builder.query<userType, string>({
-      query: (id) => `character/${id}`,
+      query: (id) => ({ url: `character/${id}`, method: 'GET' }),
     }),
     getCharacterByName: builder.query<responseUsersType, string>({
       query: (name) => ({
         url: handleUrl(name),
-        // This is the same as passing 'text'
-        validateStatus: (response, result) => response.status === 200 && !result.isError,
+        method: 'Get',
+        // validateStatus: (response, result) => {
+        //   if (response.status === 404) {
+        //     return false;
+        //   } else {
+        //     return response.status === 200 && !result.isError;
+        //   }
+        // },
       }),
     }),
   }),

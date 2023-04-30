@@ -5,6 +5,7 @@
     "jsx": "react",
     "module": "esnext",
     "moduleResolution": "node",
+    "allowJs": true,
     "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
@@ -13,7 +14,8 @@
     "strict": true,
     "skipLibCheck": true,
     "baseUrl": "./src",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["cypress", "node"]
   },
   "include": ["./src/**/*", "styled.d.ts"]
 }
